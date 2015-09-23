@@ -1,0 +1,17 @@
+<div ng-controller="RepoCtrl">
+  <h1>total of open issues is {{total_issues}}</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="contributor in contributors">
+        <td>{{contributor.login}}</td>
+      </tr>
+    </tbody>
+    
+  </table>
+  <a href="#/user/{{username}}">voltar</a>
+</div>

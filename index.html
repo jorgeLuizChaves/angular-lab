@@ -1,42 +1,21 @@
-<html>
-	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-		<script src="mainCtrl.js"></script>
-	</head>
-	<body>
+<!DOCTYPE html>
+<html ng-app="githubViewer" style="text-align:center;">
 
-		<div ng-app="githubViewer" style="text-align:center;">
-			<div ng-controller="MainCtrl">
-				<input type="search" ng-model="inputName" />
-				<input type="button" value="search" ng-click="search(inputName)"></input>
+  <head>
+    <script data-require="angular.js@~1.4.3" data-semver="1.4.6" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script data-require="angular-route@*" data-semver="1.4.3" src="https://code.angularjs.org/1.4.3/angular-route.js"></script>
+    <script src="app.js"></script>
+    
+    <script src="github.js"></script>
+    <script src="mainCtrl.js"></script>
+    <script src="UserCtrl.js"></script>
+    <script src="RepoCtrl.js"></script>
 
-				<div>
-					<h3>{{name}}</h3>
-				</div>
-				<div ng-show="name">
-					<select ng-model="orderByOpt">
-						<option value="+name">name</option>
-						<option value="-language">language</option>
-					</select>
-				</div>
+  </head>
 
-				<div id="repoTable" ng-show="name">
-					<table>
-						<thead>
-							<tr>
-								<th>name</th>
-								<th>language</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="repo in repos | orderBy:orderByOpt">
-								<td>{{repo.name}}</td>
-								<td>{{repo.language}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</body>
+  <body>
+    <h1>Github Viewer</h1>
+      <div ng-view=""></div>
+  </body>
+
 </html>

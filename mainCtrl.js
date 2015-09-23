@@ -1,38 +1,40 @@
 (function(){
-	var app = angular.module("githubViewer", []);
-
-
-	var MainCtrl = function($scope, $http){
-
-		$scope.orderByOpt = "name";
-		var onRepo = function(res){
-			$scope.repos = res.data;
-		}
-
-		var onRepoError = function(){
-			alert("error to get repo");
-		}
-
-		var onUser = function(res){
-			var user = res.data;
-			$scope.name = user.name;
-
-			var promise = $http.get("https://api.github.com/users/" + user.login + "/repos");
-			promise.then(onRepo, onRepoError);
-		}
-
-		var onError = function(res){
-			alert("error to get user");
-		}
+    var app = angular.module("githubViewer");
+	// custom service don't need to have a dollar sign to be declared.
+	var mainCtrl = function($scope, $interval, $location){
 
 		$scope.search = function(name){
-			var promise = $http.get("https://api.github.com/users/" + name);
-
-			promise.then(onUser, onError);
-
+			if(countDownInterval){
+				//var promise =  github.findByUser(name);
+				//promise.then(onUser, onError);
+				$interval.cancel(countDownInterval);
+				$scope.countDown = null;
+			}
+			$location.path("/user/" + name);
+			
 		}
+
+		var decremetation = function(){
+		$scope.countDown -= 1;
+
+		if($scope.countDown < 1){
+			$scope.search($scope.inputName);
+		}
+	}
+
+	var countDownInterval = null;
+	var startCountDown = function(){
+		//function, timer, how much times to run
+		countDownInterval = $interval(decremetation, 1000, $scope.countDown);
+	}
+
+	$scope.countDown = 5;
+	startCountDown();
 	};
 
-	app.controller("MainCtrl", ["$scope", "$http", MainCtrl]);
+
+	//app.controller("MainCtrl", ["$scope", "$http", "$interval", MainCtrl]);
+	//the first letter of the name must be capital letter
+	app.controller("MainCtrl", mainCtrl);
 
 }());

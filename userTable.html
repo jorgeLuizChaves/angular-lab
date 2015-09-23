@@ -1,0 +1,20 @@
+<div id="repoTable">
+					<select ng-model="orderByOpt">
+						<option value="+name">name</option>
+						<option value="-language">language</option>
+					</select>
+					<table>
+						<thead>
+							<tr>
+								<th>name</th>
+								<th>language</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="repo in repos | orderBy:orderByOpt">
+								<td>{{repo.name}}</td>
+								<td>{{repo.language}}</td>
+							</tr>
+						</tbody>
+					</table>
+</div>
